@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelas Sistem Informasi B</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* --- GAYA DASAR --- */
+        :root {
+            --bg-utama: #0f0c29;
+            --bg-sekunder: #302b63;
+            --warna-aksen: #00d4ff;
+            --warna-teks: #ffffff;
+            --warna-teks-secondary: #b0b0b0;
+            --bg-kartu: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--bg-utama), var(--bg-sekunder));
+            color: var(--warna-teks);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--warna-aksen);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--warna-aksen);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- Latar Belakang Animasi --- */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.5;
+            background-image: 
+                radial-gradient(circle at 20% 50%, var(--warna-aksen) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, #764ba2 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, #f093fb 0%, transparent 50%);
+            animation: bgMove 15s ease-in-out infinite;
+        }
+
+        @keyframes bgMove {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-20px, -20px) scale(1.1); }
+        }
+
+        /* --- Navigasi --- */
+        header {
+            background: rgba(15, 12, 41, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--warna-aksen);
+        }
+
+        .nav-links a {
+            color: var(--warna-teks);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--warna-aksen);
+        }
+
+        /* --- Bagian Utama (Hero) --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            color: var(--warna-teks-secondary);
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 12px 35px;
+            background: var(--warna-aksen);
+            color: var(--bg-utama);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.4);
+        }
+
+        /* --- Bagian Moto --- */
+        #moto {
+            text-align: center;
+        }
+        .moto-content {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--warna-teks-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Bagian Mahasiswa --- */
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .student-card {
+            background: var(--bg-kartu);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .student-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .student-card img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--warna-aksen);
+            transition: transform 0.3s ease;
+        }
+
+        .student-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .student-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+
+        .student-card p {
+            color: var(--warna-teks-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* --- Style untuk Tombol IG (BARU!) --- */
+        .ig-link {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+
+        .ig-link:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(225, 48, 108, 0.4);
+        }
+
+
+        /* --- Bagian Galeri --- */
+        #gallery {
+            background: var(--bg-kartu);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            height: 220px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(15, 12, 41, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            color: var(--warna-teks-secondary);
+            font-size: 0.9rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation"></div>
+
+    <header>
+        <nav>
+            <div class="logo">SI-B</div>
+            <div class="nav-links">
+                <a href="#hero">Beranda</a>
+                <a href="#moto">Moto</a>
+                <a href="#students">Anggota</a>
+                <a href="#gallery">Galeri</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- TAMPILAN AWAL -->
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Selamat Datang di SI-B</h1>
+                <p>Tempat kami berbagi ide, kode, dan kenangan. Satu tim, satu tujuan, satu jiwa.</p>
+                <a href="#students" class="btn-primary">Temui Kami</a>
+            </div>
+        </section>
+
+        <!-- MOTO KELAS -->
+        <section id="moto">
+            <div class="container">
+                <h2>Moto Kelas B</h2>
+                <div class="moto-content">
+                    <p>"Inovasi dalam Kode, Solidaritas dalam Jiwa."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIST MAHASISWA -->
+        <section id="students">
+            <div class="container">
+                <h2>Anggota Kelas B</h2>
+                <div class="students-grid">
+                    <!-- =========================================== -->
+                    <!-- AWAL: DAFTAR 22 MAHASISWA (EDIT BAGIAN INI) -->
+                    <!-- =========================================== -->
+                    
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=11" alt="Foto Mahasiswa">
+                        <h3>Mohammad Mulyakib Kuka</h3>
+                        <p>NIM: 05301425024</p>
+                        <!-- GANTI 'LINK_IG_KELAS' DI BAWAH INI -->
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="Foto Mahasiswa">
+                        <h3>Muh. Zavier Hinta</h3>
+                        <p>NIM: 05301425025</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=13" alt="Foto Mahasiswa">
+                        <h3>Revianti Daud</h3>
+                        <p>NIM: 05301425026</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=14" alt="Foto Mahasiswa">
+                        <h3>Samsul Ali</h3>
+                        <p>NIM: 05301425027</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=15" alt="Foto Mahasiswa">
+                        <h3>Siti Ma'rifah Gunawan</h3>
+                        <p>NIM: 05301425028</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=16" alt="Foto Mahasiswa">
+                        <h3>Faradila Tanango</h3>
+                        <p>NIM: 05301425029</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=17" alt="Foto Mahasiswa">
+                        <h3>Edward yohanes kevin jayadi</h3>
+                        <p>NIM: 05301425030</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=18" alt="Foto Mahasiswa">
+                        <h3>Muh. Syafiq A.R Dilo</h3>
+                        <p>NIM: 05301425031</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=19" alt="Foto Mahasiswa">
+                        <h3>Moh. Syakirin Djasman</h3>
+                        <p>NIM: 05301425032</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=20" alt="Foto Mahasiswa">
+                        <h3>Muhammad Nadhil R Lumenta</h3>
+                        <p>NIM: 05301425033</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=21" alt="Foto Mahasiswa">
+                        <h3>Ni Komang Trya Lestary Tirta</h3>
+                        <p>NIM: 05301425034</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=22" alt="Foto Mahasiswa">
+                        <h3>Ali Mashardiyansyah</h3>
+                        <p>NIM: 05301425035</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=23" alt="Foto Mahasiswa">
+                        <h3>Rafli Massi</h3>
+                        <p>NIM: 05301425036</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=24" alt="Foto Mahasiswa">
+                        <h3>Mohammad Al Fatur Pakaya</h3>
+                        <p>NIM: 05301425037</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=25" alt="Foto Mahasiswa">
+                        <h3>Meylan Cahyaningsih Salamun</h3>
+                        <p>NIM: 05301425038</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=26" alt="Foto Mahasiswa">
+                        <h3>Raditya Firmansyah Utiarahman</h3>
+                        <p>NIM: 05301425039</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=27" alt="Foto Mahasiswa">
+                        <h3>Alisya</h3>
+                        <p>NIM: 05301425040</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=28" alt="Foto Mahasiswa">
+                        <h3>Mohammad Fahri Harun</h3>
+                        <p>NIM: 05301425041</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=29" alt="Foto Mahasiswa">
+                        <h3>Eka Maulina Bakari</h3>
+                        <p>NIM: 05301425042</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=30" alt="Foto Mahasiswa">
+                        <h3>Misran K Yane</h3>
+                        <p>NIM: 05301425043</p>
+                        <a href="https://www.instagram.com/misranpoop/" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=31" alt="Foto Mahasiswa">
+                        <h3>Moh. Aril Paputungan</h3>
+                        <p>NIM: 05301425044</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                    <div class="student-card">
+                        <img src="https://i.pravatar.cc/150?img=32" alt="Foto Mahasiswa">
+                        <h3>Fahri Ramadhan Ismail</h3>
+                        <p>NIM: 05301425046</p>
+                        <a href="LINK_IG_KELAS" class="ig-link" target="_blank" rel="noopener noreferrer" title="Instagram Kelas">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+
+                    <!-- =========================================== -->
+                    <!-- AKHIR: DAFTAR 22 MAHASISWA                  -->
+                    <!-- =========================================== -->
+                </div>
+            </div>
+        </section>
+
+        <!-- GALERI FOTO KEGIATAN -->
+        <section id="gallery">
+            <div class="container">
+                <h2>Galeri Kegiatan</h2>
+                <div class="gallery-grid">
+                    <!-- 
+                        ==============================================
+                        CONTOH 1: SALIN BLOK INI DAN GANTI DENGAN DATAMU
+                        ==============================================
+                    -->
+                    <div class="gallery-item">
+                        <!-- Ganti 'href' dengan URL Postingan Instagram -->
+                        <a href="" target="_blank" rel="noopener noreferrer">
+                            <!-- Ganti 'src' dengan URL Gambar Langsung -->
+                            <img src="" alt="Deskripsi Kegiatan 1">
+                        </a>
+                    </div>
+
+                    <!-- 
+                        ==============================================
+                        CONTOH 2: SALIN BLOK INI DAN GANTI DENGAN DATAMU
+                        ==============================================
+                    -->
+                    <div class="gallery-item">
+                        <a href="" target="_blank" rel="noopener noreferrer">
+                            <img src="" alt="Deskripsi Kegiatan 2">
+                        </a>
+                    </div>
+
+                    <!-- 
+                        ==============================================
+                        CONTOH 3: SALIN BLOK INI DAN GANTI DENGAN DATAMU
+                        ==============================================
+                    -->
+                    <div class="gallery-item">
+                        <a href="" target="_blank" rel="noopener noreferrer">
+                            <img src="" alt="Deskripsi Kegiatan 3">
+                        </a>
+                    </div>
+
+                    <!-- 
+                        ==============================================
+                        CONTOH 4: SALIN BLOK INI DAN GANTI DENGAN DATAMU
+                        ==============================================
+                    -->
+                    <div class="gallery-item">
+                        <a href="" target="_blank" rel="noopener noreferrer">
+                            <img src="" alt="Deskripsi Kegiatan 4">
+                        </a>
+                    </div>
+                    
+                    <!-- TAMBAHKAN BLOK <div class="gallery-item"> ... </div> LAINNYA DI SINI JIKA INGIN MENAMBAH FOTO -->
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- COPYRIGHT -->
+    <footer>
+        <p>&copy; 2024 - Sistem Informasi B. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
